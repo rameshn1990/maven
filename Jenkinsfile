@@ -1,5 +1,3 @@
-
-
 node('master') 
 {
   stage('ContinuousDownload') 
@@ -27,12 +25,4 @@ node('master')
 			sh '''docker run --name webapp -p 7080:8080 -d webapp'''
 		}
 	
-}
-  
-  
-  
-  
-  
-  
-  
 }
