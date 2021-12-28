@@ -12,7 +12,7 @@ node('master')
   } 
   stage('ContinuousDeployment') 
   {
-    sh 'scp /home/vagrant/.jenkins/workspace/ScriptedPipeline/webapp/target/webapp.war vagrant@10.0.0.51:/var/lib/tomcat7/webapps/qaenv.war'
+   deploy adapters: [tomcat9(credentialsId: 'tomcat_creds', path: '', url: 'http://10.160.0.2:8082')], contextPath: null, war: '**/*.war'
   }
   stage('ContinuousTesting') 
   {
@@ -21,8 +21,7 @@ node('master')
   }
   stage('ContinuousDelivery') 
   {
-      input message: 'Waiting for approval !', submitter: 'Venu'
-    sh 'scp /home/vagrant/.jenkins/workspace/ScriptedPipeline/webapp/target/webapp.war vagrant@10.0.0.52:/var/lib/tomcat7/webapps/prodenv.war'
+      input message: 'Waiting for approval !', submitter: 'Ramesh'
   }
   
   
