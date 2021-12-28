@@ -10,20 +10,24 @@ node('master')
   {
     sh 'mvn package'
   } 
-  stage('ContinuousDeployment') 
-  {
-   deploy adapters: [tomcat9(credentialsId: 'tomcat_creds', path: '', url: 'http://10.160.0.2:8082')], contextPath: null, war: '**/*.war'
-  }
-  stage('ContinuousTesting') 
-  {
-    git 'https://github.com/selenium-saikrishna/TestingOnLinux.git'
+  stage('Build Docker Image')
+		{
+			
+			sh 'docker build -t webapp .' 
+		}
     
   }
-  stage('ContinuousDelivery') 
+  stage('Approval') 
   {
       input message: 'Waiting for approval !', submitter: 'Ramesh'
   }
-  
+   	
+	stage('Run Docker Image')	
+    	{
+			sh '''docker run --name webapp -p 7080:8080 -d webapp'''
+		}
+	
+}
   
   
   
