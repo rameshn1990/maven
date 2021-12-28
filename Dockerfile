@@ -1,3 +1,3 @@
 FROM openjdk:11
-ADD ./webapp.war webapp.war
+ADD ./practice-pl/webapp/target/webapp.war webapp.war
 EXPOSE 8080
