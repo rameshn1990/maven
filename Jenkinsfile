@@ -16,7 +16,7 @@ node('master')
 			sh 'docker build -t webapp .' 
 		}
     
-  }
+  
   stage('Approval') 
   {
       input message: 'Waiting for approval !', submitter: 'Ramesh'
